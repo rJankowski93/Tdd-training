@@ -1,0 +1,218 @@
+﻿Po co TDD?
+Jezeli pierwszy raz patrze na kod
+- testy moga zweryfikwoac czy kod działa
+- testy sa dokumentacja
+- jezeli wymaganie sie zmienilo to nie wiemy czy kod jest aktualny czy dotyczy jakeigos wczensiejszego wymagania
+- ułatwia implemnatcje bo w czasie kodzenia jzu spraedzmay popranwosc np nie musimy stwiac serwera cyz ontekstu springa zbey cos sprawezic
+
+Jezeli trzeba zmienic kod
+- czy czegos nie zepsuje 
+
+
+Dlaczego ludzie nie pisza testow
+- szkoda czasu (to inwestycja w przyszosc nawet jezeli an pcozatku tracimy trhce czasu to potem zyskujemy jest mniej bedów itd)
+- nie mam czasu na uczenie sie kolejengo framework
+- kod jest zbyt skomplikowany (czesto psizac po troche testy oodkrywamy ze niektore rzewczy da sie zrobic prosciej)
+- manager/klient nie pozwala (czy narzuca wam jak nazywamy klase albo jak cos zrobimy nie to Ty decydujesz jak cos zrobic)
+- kod nie potrzebuje testów (ludzie sie myla nawet w najprostszych funkcjach)
+-mamy testerow niech oni sie tym zjamuja (to deweloper najlepiej pozna funkcjonalnosc i to on wie ktore meisjca sa najabrdziej wrazliwe na bledy gdzie sa warunki brzegowe a pod rugie testerzy juz na pozneijszym poziomie testuja a wiec czym szybciej popraiwmy blad tym mniej czasu stracimy)
+
+
+TDD
+trzy etapy:
+- red (test ktory nie rpzehcodzi)
+- green (implementacja)
+- blue (refactor)
+
+Rady:
+- testuj pojendcze wymagania jak najmniejsze - tetsy ejdnostkowe
+- refctor i kodu io testow
+
+
+Rodzaje testow (znalezc przyklady):
+Piramida testow
+- jendostkowe (najwiecej) powinny sprawdzac prawie wsytzskie mozliwe przypadki
+- integracyjne - niech orzechodza tylko przez jedna tzw szczesliwa sceizke zbeys prawdzac czy tak naprawde te nasze komponenty dobrze "integruja" sie ze soba
+- testy UI
+Wsyztskei te testy nadaja sie do TDD ale njalepiej nadaja sie jednsotkowe i tajuch dzis bedziemy mowic 
+
+
+Jak włazyc tryb prezentacji w InteliJ
+Jak zmienic kolor na bialy w InteliJ
+
+Struktura testów (pomocne przy czytaniu testow, ):
+- given (przygotowanie przypadku testowego)
+- when (wywolanie akcji)
+- then (sprawdzenie czy wynik jest poprawny)
+
+
+Jezeli przy skomplikwoanych testach when sie rozrasta to moze nie testujemy ejdnego przypadku
+Test powinnien wywalac sie tylko z ejdnego powodu a nie z kilku
+testujemy tylko metody publiczne
+
+
+NIgdy nie wiesz kiedy do swojego proejktu bedziesz musial dodac jakas funkcjonalnosc ktora spowoduje drastyczny wzrost zainteresowania twoim projekt powiekszy zyski
+
+
+Pisanie testu po napsisaniu kodu jest jak gra wstepna po sexie - sprawdzic kto to pwoeidzial
+
+Franework:
+AssertJ 3.8
+JUnit 4.12
+
+-------------------------------------------------
+
+zabezpieczenie sie przed regresja - jest blad naprawiamy go i piszmey test dzieki temu juz ten blad nie wystapi 
+
+refactoryzja - nie boje sie zmienic nazwy ruszyc czegos w kodzie 
+
+szybki feedback - jezlei mamy szybkie testy to mozemy bardzo szybko dostac wyniki bez uruchamianie kontenera
+
+
+Testow jednsotkowych powinno byc duzo ale nie powinny byc to jedyne testy integracyjen tez sa potrzebne(mem z okanmi otwieranymi obok siebie w rogu)
+
+Ile powinno byc testow?
+Jednostkowe - 80-90%
+Indegracyjne - 5-15%
+Akceptacyjne - 1-5%
+
+Ogranac Mockito
+
+Co to BDD - TDD dla zachowan
+
+Cykl deweloperski screen - Marek DOminiak. Growing Object-Oriented Programming. Guided By Tests
+
+
+---------------------------------------
+- nie uzywa sie expectedException w adnotacji -> bo nie mozemy sprawdzic ktora metoda dokladnie w tescie rzuca wyjatek moze to byc przeciez jakas metoda z setup i wtedy test sie wykona a nie powinno tak byc (lepiej uzyc AssertJ lambda 41 min)
+- jedan assercja w jednym tescie - jak bedzie wiecej i wywali sie na pierwszym sprawdzaniu to problem bo nie wiemy co nie dziala czy tylko to ejdno czy wsyztskie nastepne 
+- unikaj hierarchi dziedziczenia w testach 
+- testy powinny testowac jedno zachowanie  
+- inline setup -> nie powinno byc tak ze trzeba skakac po kodzie zeby szukac czy test dziala 
+- unikaj obiektow LocalDate - unikaj sleep -> zmaist tego Clock mozemy w łatwy sposob manipulowac data przez dodaie sekundy - w Spring Security jest np takki test gdzie ktos dodal Thread.sleep(1000) i jeden test wykonuje sie sekunde a gdy bedziemy mieli 1000 takich testow, czyli robimy tak jakby fejkowy zegar ktory pomoze nam przesuwac czas 
+- testy nie powinny dotykac systemu plikow - czyli nie powinno byc new File(), bo to mocno spowalnia testy 
+- nie poiwnno byc za duzo mockow - to tez mocno spowolnia test tutaj tez widac ze jezeli kod spelnia SRP to nie tzreba dawac zbyt wielu mockow bo nie ma zbyt wielu zaleznosci
+- nie uzywam @Ignore jezlei chcemy uzyc ignore to usuwamy test - mamy to w gicie rpzeciez 
+- jezeli mamy test ktory raz dziala a raz nie i nie wiaodmo dlaczego to lepiej go usunac 
+
+
+Cechy dobrych testow:
+- niezalezne od siebie
+- niezawodne
+- czytelne
+- testuja jedno zachowanie - jeden powod do zmiany 
+- szybkie
+- tylko niezbnde asercje 
+- 
+
+Narzedzia:
+- Junit TestNG Spock(inny jezyk) -> do testow
+- Mockito -> do mocków
+- AsserJ, Truth - > bardzo fajne asercje
+- Pitest -> testy mutacyjne do testow jednostkowych (sciagnac dependency maven uruchomic Pitest i sprawdzi raport )
+- Cucumber, JBehave -> jezeli w firmie jest mocny kontakt z biznesowymi osobami i korzystacie z user story
+- Mailserver -> Greenmail (biblioteka która daje serwer mailowy no i skrzynke)
+- FTP -> MockFTPServer
+- HTTP -> okhttp, Wiremock (mokowanie po rescie dwoch kontekstow )
+Testy mutacyjne - powodowanie losowej zmiany w kodzie prpodukcyjnym i puszczenie testow, jezeli testy sa dobrze napiszane to powinny sie wywalic jezeli sie nie wywala tzn ze sa zle napisane bo nie etsteuja tego co powinny raczej tylko do testow jednsotkowych bo te testy musza zmienic kod co trwa długo 
+
+Do testow integracyjncyh (hacki):
+- zmniejsz ilosc testow int6egracyjncyh (lepiej zaminic je testy jednostkowe)
+- usunac sleep z testow
+- SSD/RAM dysku do partycji tmp (co to partycja tmp)
+- SSD/RAM dysku dla bazy danych (o ile nie uzywamy pamieciowej bazy danych - ta jest najlepsza np. H2, hsql)
+- usun zbedne logowania 
+- porownanie co do mlisekundy czyli equals moze bcy zawodne bo porownywanie bo jak stworymy dwa razy new Date(0 to w jednostkowym mzoe dzialac ale integracyjne gdy to dziala na wolnej maszynie juz nie 
+- zapewnij takie same srodowisko testowe co produkcyjne - zabezpiezenie sie przed u mnie działa 
+- unikanie hierarchi dziedziczenia w testach - ciezko sie je pozniej czyta unikamy acstractCos
+ 
+
+
+
+ Zródła:
+ Marek Dominiak - Prezentacja Pragmatyczne podejscie do pisania io utryzmywania testów 
+ Adam Pierzchała - TDD
+ Kent Beck - TDD. Sztuka tworzenia dobrego kodu
+ Krzysztof Chruściel, Agnieszka Pieszczek - CodeCouple.pl
+ 
+
+
+Przyklad FizzBuzz
+gra w ktorej ja mowie kolejne liczby a wy odpowiadacie mi jezeli liczba jest podzielna przez 3 odpowiadac fizz ejzlei ejst przez 6 odpowiadacie 5 jezlei nie ejst podzilena rpzez nie to ta sama liczba
+Jezlei liczba ejst podizlena rpzez to i to to odpwoaidacie FizzBuzz
+Wypisz wszystkie liczby od 1 do 100
+Jeśli liczba jest podzielna przez trzy wypisz “Fizz“
+Jeśli liczba jest podzielna przez pięć wypisz “Buzz“
+Jeśli liczba jest podzielna przez trzy i pięć wypisz “FizzBuzz“
+
+
+1. Test shouldReturn1WhenNumberIs1
+2. Metoda check zwraca 1 (w klasie test)
+3.  Refactor - statyczny imoport equals
+4. Test shouldReturn2WhenNumberIs2
+5. Metoda check zwraca value of number
+6.  Refactor - mozemy jeden z tych testow usunac
+7. Test shouldReturnFizzWhenNumberIs3
+8. Metoda check zwraca Fizz if number==3
+9.  Refactor - Zmienna statyczna Fizz
+10. Metoda check zwraca Fizz if number%3
+11. Test shouldReturnBuzzWhenNumberIs5
+12. Metoda check zwraca Buzz if number%5
+13. Test shouldReturnFizzBuzzWhenNumberIs15
+14. Metoda check zwraca FizzBuzz if number%5 i number%3
+15. Refaxctor = StringBuilder na FizzBuzz
+
+private String check(Long number) {
+        StringBuilder response = new StringBuilder();
+        if (number % 3 == 0) {
+            response.append(FIZZ);
+        }
+        if (number % 5 == 0) {
+            response.append(BUZZ);
+        }
+        if (response.length() == 0) {
+            response.append(number);
+        }
+        return response.toString();
+    }
+ private class FizzBuzz{
+        final Long fizz;
+        final Long buzz;
+
+        public FizzBuzz(Long fizz, Long buzz) {
+            this.fizz = fizz;
+            this.buzz = buzz;
+        }
+
+        public FizzBuzz() {
+            this(3L,5L);
+        }
+
+        private String check(Long number) {
+            StringBuilder response = new StringBuilder();
+            fizz(number, response);
+            buzz(number, response);
+            number(number, response);
+            return response.toString();
+        }
+
+        private void number(Long number, StringBuilder response) {
+            if (response.length() == 0) {
+                response.append(number);
+            }
+        }
+
+        private void buzz(Long number, StringBuilder response) {
+            if (number % buzz == 0) {
+                response.append(BUZZ);
+            }
+        }
+
+        private void fizz(Long number, StringBuilder response) {
+            if (number % fizz == 0) {
+                response.append(FIZZ);
+            }
+        }
+    }
+
+Co to kata?
