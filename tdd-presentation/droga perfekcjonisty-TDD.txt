@@ -1,9 +1,7 @@
 Co zrobic:
-Jak włazyc tryb prezentacji w InteliJ
-Jak zmienic kolor na bialy w InteliJ
 Przyklady testow 
 Ogranac Mockito
-Ogarnac 
+
 Przyklad błedu w expectedException (lepiej uzyc AssertJ lambda 41 min)
 Testy mutacyjne - przykład
 Co to partycja tmp

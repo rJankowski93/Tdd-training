@@ -1,0 +1,8 @@
+Tryb prezentacji
+View -> Enter Full Screen
+
+Zmiana koloru
+Settings -> Theme(InteliJ)
+
+Nowy Test
+Alt + Enter
