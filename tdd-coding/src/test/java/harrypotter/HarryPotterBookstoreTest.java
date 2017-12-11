@@ -71,6 +71,6 @@ public class HarryPotterBookstoreTest {
         order.addBook("Episoe4",1);
         order.addBook("Episoe5",1);
         double total = bookstore.buy(order);
-        assertEquals(51.6, total, 0);
+        assertEquals(51.2, total, 0);
     }
 }
